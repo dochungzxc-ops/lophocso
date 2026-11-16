@@ -1,0 +1,212 @@
+{
+  "entities": {
+    "Classroom": {
+      "title": "Classroom",
+      "description": "Metadata for a managed classroom including name, academic year, and homeroom teacher.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "schoolYear": { "type": "string", "minLength": 4, "maxLength": 30 },
+        "teacherUid": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "teacherEmail": { "type": "string", "format": "email", "maxLength": 150 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "schoolYear", "teacherUid", "createdAt", "updatedAt"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Public-safe role and display profile for an authenticated classroom user.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "fullName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "role": { "type": "string", "enum": ["teacher", "monitor", "vice_monitor", "secretary", "team_leader", "student"] },
+        "team": { "type": "string", "enum": ["To 1", "To 2", "To 3", ""] },
+        "studentCode": { "type": "string", "maxLength": 32 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "fullName", "role", "createdAt", "updatedAt"]
+    },
+    "UserPrivateInfo": {
+      "title": "UserPrivateInfo",
+      "description": "Isolated PII document for user email and sensitive contact details.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "email": { "type": "string", "format": "email", "maxLength": 150 },
+        "parentPhone": { "type": "string", "maxLength": 25 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "updatedAt"]
+    },
+    "StudentPublic": {
+      "title": "StudentPublic",
+      "description": "Classroom roster entry for seating chart and non-PII class rankings.",
+      "type": "object",
+      "properties": {
+        "studentCode": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 32 },
+        "fullName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "team": { "type": "string", "enum": ["To 1", "To 2", "To 3"] },
+        "role": { "type": "string", "enum": ["monitor", "vice_monitor", "secretary", "team_leader", "student"] },
+        "seatRow": { "type": "integer" },
+        "seatCol": { "type": "integer" },
+        "ownerUid": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["studentCode", "fullName", "team", "role", "seatRow", "seatCol", "ownerUid", "createdAt", "updatedAt"]
+    },
+    "StudentPrivate": {
+      "title": "StudentPrivate",
+      "description": "PII fields for a student (school email, birth year, parent phone), restricted to teacher and owner.",
+      "type": "object",
+      "properties": {
+        "studentCode": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 32 },
+        "schoolEmail": { "type": "string", "format": "email", "maxLength": 150 },
+        "birthYear": { "type": "integer" },
+        "parentPhone": { "type": "string", "maxLength": 25 },
+        "ownerUid": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["studentCode", "schoolEmail", "birthYear", "ownerUid", "updatedAt"]
+    },
+    "AttendanceRecord": {
+      "title": "AttendanceRecord",
+      "description": "Daily attendance status for a student.",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", "maxLength": 10 },
+        "studentId": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "status": { "type": "string", "enum": ["present", "excused", "unexcused", "late"] },
+        "reason": { "type": "string", "maxLength": 300 },
+        "recordedBy": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["date", "studentId", "status", "recordedBy", "createdAt", "updatedAt"]
+    },
+    "ConductLog": {
+      "title": "ConductLog",
+      "description": "Good points or violation deductions recorded for a student.",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", "maxLength": 10 },
+        "session": { "type": "string", "enum": ["Sang", "Chieu", "Sinh hoat"] },
+        "studentId": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "category": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "points": { "type": "integer" },
+        "note": { "type": "string", "maxLength": 300 },
+        "recordedBy": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["date", "session", "studentId", "category", "points", "recordedBy", "createdAt"]
+    },
+    "PointRule": {
+      "title": "PointRule",
+      "description": "Configurable merit and violation point presets.",
+      "type": "object",
+      "properties": {
+        "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "points": { "type": "integer" },
+        "type": { "type": "string", "enum": ["merit", "violation"] },
+        "createdBy": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["label", "points", "type", "createdBy", "createdAt", "updatedAt"]
+    },
+    "DutySchedule": {
+      "title": "DutySchedule",
+      "description": "Daily classroom cleaning and duty roster entry.",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", "maxLength": 10 },
+        "assignedTeam": { "type": "string", "enum": ["To 1", "To 2", "To 3", "Ca lop"] },
+        "task": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "status": { "type": "string", "enum": ["pending", "completed", "issue"] },
+        "note": { "type": "string", "maxLength": 300 },
+        "updatedBy": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["date", "assignedTeam", "task", "status", "updatedBy", "createdAt", "updatedAt"]
+    },
+    "ClassPost": {
+      "title": "ClassPost",
+      "description": "Class announcements, events, and articles visible to students and visitors.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "content": { "type": "string", "minLength": 1, "maxLength": 4000 },
+        "category": { "type": "string", "enum": ["Hoat dong lon", "Thong bao", "Bai viet"] },
+        "authorUid": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "authorName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "content", "category", "authorUid", "authorName", "createdAt"]
+    },
+    "AppNotification": {
+      "title": "AppNotification",
+      "description": "Automated in-app notification triggered by point deductions or officer dispatches.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "message": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "type": { "type": "string", "enum": ["deduction", "dispatch", "absence"] },
+        "targetUserId": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "createdBy": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 128 },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "message", "type", "targetUserId", "createdBy", "isRead", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Public-safe user profile and role assignment"
+    },
+    "/users/{userId}/private/{docId}": {
+      "schema": { "$ref": "#/entities/UserPrivateInfo" },
+      "description": "Isolated PII document for user email and phone"
+    },
+    "/classrooms/{classId}": {
+      "schema": { "$ref": "#/entities/Classroom" },
+      "description": "Classroom root document"
+    },
+    "/classrooms/{classId}/students/{studentId}": {
+      "schema": { "$ref": "#/entities/StudentPublic" },
+      "description": "Public-safe student roster and seating data"
+    },
+    "/classrooms/{classId}/studentPrivate/{studentId}": {
+      "schema": { "$ref": "#/entities/StudentPrivate" },
+      "description": "Student PII (email, birthYear, parentPhone)"
+    },
+    "/classrooms/{classId}/attendance/{recordId}": {
+      "schema": { "$ref": "#/entities/AttendanceRecord" },
+      "description": "Daily attendance records"
+    },
+    "/classrooms/{classId}/conductLogs/{logId}": {
+      "schema": { "$ref": "#/entities/ConductLog" },
+      "description": "Conduct merit and violation log entries"
+    },
+    "/classrooms/{classId}/pointRules/{ruleId}": {
+      "schema": { "$ref": "#/entities/PointRule" },
+      "description": "Configurable merit and violation point presets"
+    },
+    "/classrooms/{classId}/dutySchedules/{dutyId}": {
+      "schema": { "$ref": "#/entities/DutySchedule" },
+      "description": "Daily cleaning duty schedules"
+    },
+    "/classrooms/{classId}/posts/{postId}": {
+      "schema": { "$ref": "#/entities/ClassPost" },
+      "description": "Class announcements, events, and posts"
+    },
+    "/classrooms/{classId}/notifications/{notifId}": {
+      "schema": { "$ref": "#/entities/AppNotification" },
+      "description": "Automated deduction and dispatch notifications"
+    }
+  }
+}

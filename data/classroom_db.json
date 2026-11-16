@@ -1,0 +1,109 @@
+{
+  "classroomName": "Lớp Học Trực Tuyến",
+  "schoolYear": "2026 - 2027",
+  "users": [
+    {
+      "id": "teacher_thuy",
+      "email": "nguyenthithuy@gmail.com",
+      "fullName": "Cô Nguyễn Thị Thủy",
+      "role": "teacher",
+      "team": "",
+      "passwordSalt": "95bc56170437efd6b6a84e8f7c3fc689",
+      "passwordHash": "5b9705f5151de83f478ff89c4f7d84a21ec59deafed2b23ffbfe04c0d6e43bc42639b81e3fe6c19055fd231be40b719459b29b791ef66b6a3c74dd63fa1817d1",
+      "mustPromptPasswordChange": false
+    },
+    {
+      "id": "stu_b0ba659e",
+      "email": "nhatthien152011@gmail.com",
+      "studentCode": "HS001",
+      "fullName": "Nguyễn Nhật Thiện",
+      "role": "student",
+      "team": "To 1",
+      "passwordSalt": "665f6f33c994f351fa9749fb7d39d810",
+      "passwordHash": "f76f4ff43faf2ca2aabaa46e958109d6b69535634b4263efd0a3daea11a8c03254d4a4968ab9c8c88a05d076c225536e5bc831847eedcd32247473e30f0b48ef",
+      "mustPromptPasswordChange": false
+    },
+    {
+      "id": "stu_2bb5b233",
+      "email": "ngoctran@gmail.com",
+      "studentCode": "HS002",
+      "fullName": "Nguyễn Trần Bảo Ngọc",
+      "role": "team_leader",
+      "team": "To 2",
+      "passwordSalt": "2421d233b4943c0f86f89de9527ce836",
+      "passwordHash": "b350704dae5f87b133e3fc6aea1ec897e1dd2c18584ee7ef9bcd4bb29bc4a4ef6639078d6698fe91d81d8355cd1f4457848d55afb0ea27d3c192203b61cadefa",
+      "mustPromptPasswordChange": false
+    }
+  ],
+  "students": [
+    {
+      "id": "stu_b0ba659e",
+      "studentCode": "HS001",
+      "fullName": "Nguyễn Nhật Thiện",
+      "schoolEmail": "nhatthien152011@gmail.com",
+      "birthYear": 2011,
+      "team": "To 1",
+      "role": "student",
+      "seatRow": 0,
+      "seatCol": 0,
+      "parentPhone": "",
+      "createdAt": "2026-11-16T02:33:08.067Z",
+      "updatedAt": "2026-11-16T02:33:08.067Z"
+    },
+    {
+      "id": "stu_2bb5b233",
+      "studentCode": "HS002",
+      "fullName": "Nguyễn Trần Bảo Ngọc",
+      "schoolEmail": "ngoctran@gmail.com",
+      "birthYear": 2008,
+      "team": "To 2",
+      "role": "team_leader",
+      "seatRow": 0,
+      "seatCol": 1,
+      "parentPhone": "",
+      "createdAt": "2026-11-16T02:49:57.721Z",
+      "updatedAt": "2026-11-16T02:49:57.721Z"
+    }
+  ],
+  "attendance": [
+    {
+      "id": "att_2026-11-16_stu_b0ba659e",
+      "date": "2026-11-16",
+      "studentId": "stu_b0ba659e",
+      "status": "excused",
+      "reason": "Nghỉ học",
+      "recordedBy": "teacher_thuy",
+      "recordedByName": "Cô Nguyễn Thị Thủy",
+      "updatedAt": "2026-11-16T02:33:30.683Z"
+    }
+  ],
+  "conductLogs": [
+    {
+      "id": "log_04605eca",
+      "date": "2026-11-16",
+      "session": "Sang",
+      "studentId": "stu_2bb5b233",
+      "category": "Điểm tốt",
+      "points": 10,
+      "recordedBy": "teacher_thuy",
+      "recordedByName": "Cô Nguyễn Thị Thủy",
+      "createdAt": "2026-11-16T02:50:33.460Z"
+    }
+  ],
+  "pointRules": [],
+  "dutySchedules": [],
+  "posts": [],
+  "notifications": [
+    {
+      "id": "notif_85bb303c",
+      "title": "Báo vắng tự động: Nguyễn Nhật Thiện",
+      "message": "Ngày 2026-11-16: Nguyễn Nhật Thiện nghỉ học (Có phép) - Lý do: Nghỉ học. Báo bởi Cô Nguyễn Thị Thủy.",
+      "type": "absence",
+      "targetUserId": "teacher_thuy",
+      "studentId": "stu_b0ba659e",
+      "createdBy": "teacher_thuy",
+      "isRead": true,
+      "createdAt": "2026-11-16T02:33:30.683Z"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "LopHocSo - Quan Ly Lop Hoc Truc Tuyen",
+  "description": "Nen tang quan ly lop hoc truc tuyen: diem danh tuan, phan cong truc nhat, thi dua to, so do cho ngoi, nhap xuat Excel va tro ly AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
